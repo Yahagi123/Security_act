@@ -1,3 +1,21 @@
+<?php
+    session_start();
+    if(isset($_POST["Signin"])){
+        require "./connect.php";
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $query ="SELECT * FROM `employee` WHERE `Username` ='$username'";
+        $result = mysqli_query($conn, $query);
+        if($result->num_rows == 1){
+            header("Location:user_dashboard.php");
+            exit();
+        }
+    }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,13 +38,11 @@
             </div>
             <div class="container_rem">
                 <input type="checkbox" name="remember" id="remember">
-                <p>Remember Password</p>
-            </div>
-            <div class="container_rem">
+                <label for="remember">Remember Password</label>
                 <a href="#">Forgot Password</a>
             </div>
             <div class="container_but">
-                <input type="submit" value="submit">
+                <input type="submit" value="Sign in" name ="Signin">
             </div>
         </form>
 
